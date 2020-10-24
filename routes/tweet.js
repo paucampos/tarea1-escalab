@@ -1,7 +1,14 @@
 const router = require("express").Router();
-const { createTweet } = require("../controllers/tweet");
+const { getTweet, getFollowers, createTweet, deleteTweet, tweetById } = require("../controllers/tweet");
+const { valuesValidator } = require('../validators');
 
 // Rutas
-router.post("/create", createTweet);
+router.get("/tweets", getTweet);
+router.get("/tweets/followers", getFollowers);
+router.post("/tweet/create", createTweet, valuesValidator);
+router.delete("/tweet/:tweetId", deleteTweet);
+
+// Params
+router.param("tweetId", tweetById);
 
 module.exports = router;
